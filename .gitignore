@@ -11,10 +11,16 @@ expo-env.d.ts
 .kotlin/
 *.orig.*
 *.jks
+*.keystore
 *.p8
 *.p12
 *.key
+*.pem
 *.mobileprovision
+
+# Package and build artifacts
+*.apk
+*.aab
 
 # Metro
 .metro-health-check*
@@ -27,8 +33,8 @@ yarn-error.*
 
 # Environment variables
 .env
-.env.local
-.env*.local
+.env*
+!.env.example
 
 # Operating System files
 .DS_Store
