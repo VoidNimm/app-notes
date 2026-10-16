@@ -1,95 +1,95 @@
 # plss.inget
 
-Aplikasi mobile berbasis Expo dan React Native untuk mencatat tugas kuliah beserta deadline dan pengingat notifikasi lokal secara instan, tanpa server dan tanpa perlu login.
+A mobile application built with Expo and React Native to track university assignments, deadlines, and local notification reminders instantly—without servers and without requiring an account or login.
 
-Dokumentasi lengkap proyek:
+Full project documentation:
 - [Product Requirement Document (PRD)](docs/PRD.md)
 - [Design Specification & Tokens](docs/design.md)
 
 ---
 
-## Fitur v1
+## Features v1
 
-- **Pencatatan Tugas Cepat**: Tambah tugas baru dengan judul, deadline (tanggal & jam), mata kuliah, dan deskripsi dalam hitungan detik.
-- **Sistem Pengingat Lokal**: Notifikasi otomatis dijadwalkan pada waktu deadline dan H-1 jam sebelum deadline langsung di perangkat.
-- **Tampilan Tugas Terstruktur**:
-  - Ringkasan tugas mendesak hari ini (*Hero Summary*).
-  - Pengelompokan tugas berdasarkan batas waktu (Hari Ini, Besok, Minggu Ini, Nanti).
-  - Bagian tugas Selesai (*collapsible*) untuk menandai progres belajar.
-- **Katalog Mata Kuliah**: Folder visual untuk 8 mata kuliah kelas 1KA03 lengkap dengan jadwal sesi, ruang, dan dosen.
-- **100% Offline & Privat**: Seluruh data tersimpan lokal di perangkat menggunakan AsyncStorage, tanpa analitik atau pelacakan server.
+- **Quick Task Capture**: Add new tasks with title, deadline (date & time), course, and description in seconds.
+- **Local Reminder System**: Automatic notifications scheduled directly on the device at the deadline and 1 hour before the deadline.
+- **Structured Task Views**:
+  - Urgent tasks summary for today (*Hero Summary*).
+  - Tasks grouped by deadline urgency (Today, Tomorrow, This Week, Later).
+  - Completed tasks section (*collapsible*) to track your progress.
+- **Course Catalog**: Visual folder cards for 8 courses (class 1KA03) complete with session times, room, and lecturer info.
+- **100% Offline & Private**: All data is stored locally on the device using AsyncStorage, with zero analytics or server tracking.
 
 ---
 
-## Cara Menjalankan
+## Getting Started
 
-### 1. Prasyarat
-- Node.js (versi 18 atau lebih baru)
-- npm atau bun/yarn
-- Aplikasi **Expo Go** terpasang di HP (Android atau iOS)
+### 1. Prerequisites
+- Node.js (version 18 or later)
+- npm, yarn, or bun
+- **Expo Go** app installed on your mobile device (Android or iOS)
 
-### 2. Instalasi Dependensi
+### 2. Dependency Installation
 ```bash
 npm install
 ```
 
-### 3. Menjalankan di Expo Go
-1. Pastikan komputer dan HP terhubung ke jaringan Wi-Fi yang sama.
-2. Jalankan server pengembangan Expo:
+### 3. Running in Expo Go
+1. Make sure your computer and mobile device are connected to the same Wi-Fi network.
+2. Start the Expo development server:
    ```bash
    npx expo start
    ```
-3. Buka di perangkat:
-   - **Android**: Buka aplikasi Expo Go, pilih *Scan QR Code*, lalu arahkan kamera ke QR code di terminal.
-   - **iOS**: Buka kamera bawaan, arahkan ke QR code, lalu ketuk banner notifikasi untuk membuka di Expo Go.
+3. Open on your device:
+   - **Android**: Open the Expo Go app, select *Scan QR Code*, and scan the QR code displayed in the terminal.
+   - **iOS**: Open the default Camera app, point at the QR code, and tap the notification banner to open in Expo Go.
 
 ---
 
-## Build APK Lewat EAS (Expo Application Services)
+## Building an APK with EAS (Expo Application Services)
 
-Proyek ini telah dikonfigurasi untuk membuat file APK mandiri (*standalone APK*) tanpa memerlukan Android Studio lokal:
+This project is pre-configured to generate a standalone Android APK without requiring local Android Studio installations:
 
-1. Pasang EAS CLI secara global (atau gunakan `npx`):
+1. Install EAS CLI globally (or use `npx`):
    ```bash
    npm install -g eas-cli
    ```
-2. Masuk ke akun Expo Anda:
+2. Log in to your Expo account:
    ```bash
    eas login
    ```
-3. Jalankan perintah build APK (profil `preview` di `eas.json`):
+3. Run the APK build command (using the `preview` profile defined in `eas.json`):
    ```bash
    eas build -p android --profile preview
    ```
-4. Setelah proses build di cloud Expo selesai, unduh dan pasang berkas `.apk` yang dihasilkan langsung ke HP Android.
+4. Once the build finishes on Expo's cloud build servers, download and install the generated `.apk` file directly on your Android device.
 
 ---
 
-## Struktur Folder
+## Folder Structure
 
 ```text
 app-notes/
-├── assets/             # Aset gambar, ikon adaptif aplikasi, dan ilustrasi 3D
-├── docs/               # Dokumentasi resmi proyek
-│   ├── PRD.md          # Dokumen kebutuhan produk (Product Requirement Document)
-│   ├── design.md       # Spesifikasi desain, token warna, dan layout
-│   └── slicing-skill.md# Panduan slicing desain dan kepatuhan UI
-├── reference/          # Gambar referensi desain UI mockup
-├── scripts/            # Skrip utilitas (pemotong ikon & pengujian design tokens)
+├── assets/             # Images, adaptive app icons, and 3D illustrations
+├── docs/               # Official project documentation
+│   ├── PRD.md          # Product Requirement Document
+│   ├── design.md       # Design specifications, color tokens, and layout guidelines
+│   └── slicing-skill.md# Slicing guidelines and UI compliance specs
+├── reference/          # UI mockup reference images
+├── scripts/            # Utility scripts (icon slicing & design token linting)
 ├── src/
-│   ├── app/            # Rute dan layar aplikasi (Expo Router)
+│   ├── app/            # Application routes and screens (Expo Router)
 │   │   ├── _layout.tsx # Root stack layout & modal presentation
-│   │   ├── index.tsx   # Layar utama (daftar tugas & navigasi)
-│   │   ├── notification-permission.tsx # Permintaan izin notifikasi
-│   │   └── task/       # Formulir tambah tugas modal dan detail tugas
-│   ├── components/     # Komponen UI modular (TaskCard, CourseFolderCard, dll.)
-│   ├── constants/      # Token desain visual, daftar mata kuliah, dan aset ikon
-│   ├── hooks/          # Custom hooks React (mis. useColorScheme)
-│   ├── services/       # Layanan lokal (AsyncStorage, pengingat notifikasi)
-│   ├── types/          # Definisi tipe data TypeScript
-│   └── utils/          # Fungsi bantu dan formatter tanggal/waktu
-├── app.json            # Konfigurasi aplikasi Expo & EAS
-├── eas.json            # Konfigurasi build EAS (profil preview untuk APK)
-├── package.json        # Dependensi dan skrip proyek
-└── tsconfig.json       # Konfigurasi TypeScript
+│   │   ├── index.tsx   # Main screen (task list & navigation)
+│   │   ├── notification-permission.tsx # Notification permission request screen
+│   │   └── task/       # Task form modal (add/edit) and task detail screen
+│   ├── components/     # Reusable modular UI components (TaskCard, CourseFolderCard, etc.)
+│   ├── constants/      # Visual design tokens, course list data, and icon assets
+│   ├── hooks/          # Custom React hooks (e.g., useColorScheme)
+│   ├── services/       # Local services (AsyncStorage, notification reminders)
+│   ├── types/          # TypeScript type definitions
+│   └── utils/          # Helper utilities and date/time formatters
+├── app.json            # Expo & EAS application configuration
+├── eas.json            # EAS build configuration (preview profile for APK)
+├── package.json        # Project dependencies and npm scripts
+└── tsconfig.json       # TypeScript configuration
 ```
