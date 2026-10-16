@@ -1,12 +1,23 @@
 import { Stack } from 'expo-router';
 
+import { configureNotificationHandler } from '@/services/notifications';
+
+// Handler harus aktif sejak aplikasi dimulai agar notifikasi tampil saat aplikasi terbuka.
+configureNotificationHandler();
+
 export default function RootLayout() {
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ title: 'S1: Daftar Tugas' }} />
-      <Stack.Screen name="task/form" options={{ title: 'S2: Form Tambah/Edit' }} />
-      <Stack.Screen name="task/[id]" options={{ title: 'S3: Detail Tugas' }} />
-      <Stack.Screen name="notification-permission" options={{ title: 'S4: Penjelasan Izin Notifikasi' }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="task/form"
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="task/[id]" options={{ headerShown: false }} />
+      <Stack.Screen name="notification-permission" options={{ headerShown: false }} />
     </Stack>
   );
 }

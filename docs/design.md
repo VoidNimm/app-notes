@@ -1,10 +1,11 @@
 ---
 name: design-aplikasi-catatan-tugas
 description: Panduan desain Aplikasi Pencatat Tugas Kuliah (plss.inget). Baca file ini sebelum membuat atau mengubah UI apa pun untuk proyek ini; semua warna, tipografi, spasi, komponen, dan motion mengikuti dokumen ini.
-version: 0.1.2
-status: draft
+version: 0.2.3
+status: active
 mode: B
 dibuat: 2026-10-14
+diperbarui: 2026-10-15
 ---
 
 # Design Guide: Aplikasi Pencatat Tugas Kuliah (plss.inget)
@@ -28,9 +29,9 @@ dibuat: 2026-10-14
 |---|---|
 | Produk / halaman | plss.inget — Aplikasi Pencatat Tugas Kuliah (Aplikasi Android Personal) |
 | Audiens dan tugas utama | Mahasiswa yang ingin mencatat tugas dari dosen secepat kilat (target < 10 detik), mengelompokkan deadline secara visual, dan menerima pengingat notifikasi lokal tepat waktu. |
-| Mode slicing | **Mode B (Terinspirasi)** — mengambil pola struktur, kontras dual-tone, floating action pill, dan kartu berwarna dari referensi pihak ketiga, dengan copy, palet warna, tipografi, dan aset 100% orisinal disesuaikan dengan PRD. |
-| Sumber referensi | Berkas tangkapan layar `reference/reference.jpg` (komposisi 3 layar mockup mobile: Today hero card, Saved category folder grid, Chats task-stream bubbles). Hak pakai referensi: gambar referensi inspirasi eksternal (tidak berlisensi langsung). |
-| Cara sintesis (Mode B) | **Pola yang diambil dari referensi:** <br>1. Layar 1 (Today): Komposisi dual-tone — kartu atas berlatar gelap pekat (*dark charcoal*) berisi greeting hangat dan ringkasan kontekstual, dipadukan dengan kontainer bawah berlatar terang dengan radius sudut besar.<br>2. Layar 3 (Chats): Aliran tugas (*task stream*) berbentuk bubble kartu berkontur ramah dengan kode warna deadline yang khas.<br>3. Floating Action Pill: Tombol aksi tunggal mengambang di bawah layar yang ergonomis untuk jangkauan satu jempol.<br>**Yang dibuat orisinal:** Seluruh teks antarmuka dalam Bahasa Indonesia akademis-santai, palet warna semantik tugas (Terlambat, Hari ini, Minggu ini, Nanti, Selesai), modal form tambah tugas cepat via Expo Router, serta dialog konfirmasi hapus terstandarisasi. |
+| Mode slicing | **Mode B (Terinspirasi)** — mengambil pola struktur, kontras dual-tone, floating action pill dock, kartu folder 2 kolom, dan kartu gelembung percakapan berwarna dari referensi pihak ketiga, dengan copy, palet warna, tipografi, dan aset 100% orisinal disesuaikan dengan PRD dan jadwal kuliah kelas 1KA03. |
+| Sumber referensi | Berkas tangkapan layar `reference/reference.jpg` (komposisi 3 layar mockup mobile: 1. Layar "Today" hero card, 2. Layar "Saved" category folder grid 2 kolom, 3. Layar "Chats" task-stream bubbles). Hak pakai referensi: gambar referensi inspirasi eksternal (tidak berlisensi langsung). |
+| Cara sintesis (Mode B) | **Pola yang diambil dari referensi:** <br>1. Layar 1 (Today): Komposisi dual-tone — kartu atas berlatar gelap pekat (*dark charcoal*) berisi greeting personal kontekstual dan ringkasan tugas mendesak hari ini, dipadukan dengan kontainer bawah berlatar terang dengan radius sudut besar.<br>2. Layar 2 (Saved): Katalog folder kategori dalam grid 2 kolom dengan warna-warna vibrant (Kuning, Biru, Oranye, Lavender, Coral, Mint), menampilkan 8 mata kuliah utama kelas 1KA03 lengkap dengan jadwal dan dosen.<br>3. Layar 3 (Chats): Aliran tugas (*task stream*) berbentuk bubble kartu berkontur ramah/organik dengan kode warna semantik dan aksen ilustrasi/stiker.<br>4. Floating Pill Dock: Dok navigasi dan aksi mengambang berbentuk kapsul di bawah layar yang ergonomis untuk jangkauan satu jempol.<br>**Yang dibuat orisinal:** Seluruh teks antarmuka dalam Bahasa Indonesia akademis-santai, jadwal dan daftar 8 mata kuliah 1KA03, modal form tambah tugas cepat via Expo Router dengan selector pills, serta dialog konfirmasi hapus terstandarisasi. |
 | Lebar acuan dan faktor skala | Lebar acuan viewport: `390px` (skala perangkat modern 1x), faktor skala referensi `~1.85x` (berdasarkan gambar mockup 736x552 px). Tingkat keyakinan: **S**. |
 
 ---
@@ -40,12 +41,12 @@ dibuat: 2026-10-14
 - **Kepribadian antarmuka dalam 4 kata kunci:**
   *Fokus*, *Hangat*, *Ekspresif*, *Ringan*.
 - **Prinsip desain:**
-  1. **Kecepatan di atas segalanya (Speed First):** Form pencatatan tugas dirancang seringkas mungkin dengan nilai bawaan cerdas (deadline default besok 23.59) agar tugas tersimpan dalam < 10 detik tanpa hambatan visual.
-  2. **Hierarki Berbasis Urgensi (Color with Meaning):** Warna cerah bukan sekadar dekorasi, melainkan indikator waktu deadline (Merah untuk Terlambat, Kuning-Amber untuk Hari Ini, Biru untuk Minggu Ini, Ungu untuk Nanti, dan Hijau untuk Selesai).
+  1. **Kecepatan di atas segalanya (Speed First):** Form pencatatan tugas dirancang seringkas mungkin dengan pemilih pill mata kuliah instan (`CourseSelectorPills`) dan nilai bawaan cerdas (deadline default besok 23.59) agar tugas tersimpan dalam < 10 detik tanpa hambatan visual.
+  2. **Hierarki Berbasis Urgensi & Mata Kuliah (Color with Meaning):** Warna cerah bukan sekadar dekorasi, melainkan pembeda visual folder mata kuliah 1KA03 dan indikator batas waktu tugas (Merah untuk Terlambat, Kuning-Amber untuk Hari Ini, Biru untuk Minggu Ini, Ungu untuk Nanti, dan Hijau untuk Selesai).
   3. **Dual-Tone yang Menenangkan (Cozy & Crisp):** Paduan kartu header gelap pekat (*dark charcoal*) dengan kanvas krem hangat (*warm cream canvas*) menciptakan kontras visual yang elegan tanpa menyilaukan mata mahasiswa saat belajar malam.
-  4. **Ramah Satu Jempol (Thumb-Zone Ergonomics):** Tombol aksi utama tunggal mengambang (*Floating Action Pill*) diletakkan di bawah layar agar mudah dicapai satu tangan saat berada di kelas.
+  4. **Ramah Satu Jempol (Thumb-Zone Ergonomics):** Dok navigasi dan tombol aksi utama mengambang (*Floating Pill Dock*) diletakkan di bawah layar agar mudah dicapai satu tangan saat berada di kelas.
 - **Elemen yang sengaja dibuat paling menonjol:**
-  Kartu Rangkuman Hari Ini (*Hero Summary Card*) di bagian atas berlatar gelap dengan ringkasan jumlah tugas mendesak, serta tombol tunggal mengambang `+ Tambah Tugas`.
+  Kartu Rangkuman Hari Ini (*Hero Summary Card*) di bagian atas berlatar gelap pada layar Today, folder mata kuliah berkartu warna cerah pada layar Saved, serta gelembung percakapan tugas pada layar Chats.
 
 ---
 
@@ -55,43 +56,86 @@ dibuat: 2026-10-14
 - **Margin samping (padding horizontal):** `16px` (mobile standar) hingga `20px`.
 - **Ritme vertikal antar section:** Kelipatan `16px` (`--space-4`) atau `24px` (`--space-6`).
 - **Penjajaran default:** Rata kiri (*left-aligned*) untuk judul, label, dan isi tugas; rata tengah (*center*) untuk tombol aksi dok dan status empty state.
-- **Wireframe ASCII:**
+- **Wireframe ASCII (3 Layar & Floating Pill Dock):**
 
 ```text
+======================= LAYAR 1: TODAY =======================
 +------------------------------------------+
 |  [Status Bar: Jam, Baterai, Wi-Fi]       |
 +------------------------------------------+
-|  plss.inget                  Rab, 14 Okt |  <- Header & Hero Card (Dark)
-|  Halo, Mahasiswa!                        |
-|  Hari ini ada 2 tugas kuliah             |
-|  yang harus diselesaikan:                |
-|  * Laporan Praktikum (Basis Data)        |
-|  * Tugas 3 (Kalkulus)                    |
+|  Today                       Rab, 15 Okt |  <- Header & Hero Card (Dark)
+|                                          |
+|  Halo, Mahasiswa! Hari ini ada           |
+|  2 tugas kuliah yang harus diselesaikan: |
+|  * Laporan Praktikum (Fisika & Kimia)    |
+|  * Tugas 1 (Konsep SI & TI)              |
+|                                          |
+|  Berdasarkan 8 mata kuliah 1KA03         |
 +------------------------------------------+
-|  DAFTAR TUGAS                            |  <- Light Surface Container
+|  Tugas Mendesak              3 tugas ▾   |  <- Light Surface Container
 |  +------------------------------------+  |
 |  | [!] TERLAMBAT (1)                  |  |
-|  | +--------------------------------+ |  |
-|  | | (O) Resume Jurnal              | |  |  <- Urgent Card (Red Tint)
-|  | |     Pancasila · Kemarin, 23.59 | |  |
-|  | +--------------------------------+ |  |
-|  |                                    |  |
+|  | (O) Resume Jurnal Pancasila        |  |  <- Urgent Task Card
+|  +------------------------------------+  |
 |  | [*] HARI INI (2)                   |  |
-|  | +--------------------------------+ |  |
-|  | | (O) Laporan Praktikum          | |  |  <- Today Card (Amber Tint)
-|  | |     Pemrog Web · Hari ini, 21.00| |  |
-|  | +--------------------------------+ |  |
-|  |                                    |  |
-|  | [>] MINGGU INI (3)                 |  |
-|  | +--------------------------------+ |  |
-|  | | (O) Makalah AI                 | |  |  <- Week Card (Blue Tint)
-|  | |     Kecerdasan Buatan · Jum 23.59| |
-|  | +--------------------------------+ |  |
-|  |                                    |  |
-|  | [v] SELESAI (4)           [Buka v] |  |  <- Collapsible (Default Tertutup)
+|  | (O) Laporan Praktikum Fisika       |  |  <- Today Task Card
 |  +------------------------------------+  |
 |                                          |
-|            ( + Tambah Tugas )            |  <- Single Floating Action Pill
+|       [ (Home)  (Folder)  (+)  (Chats) ] |  <- Floating Pill Dock
++------------------------------------------+
+
+======================= LAYAR 2: SAVED =======================
++------------------------------------------+
+|  Saved                        8 folders +|  <- Screen Header
++------------------------------------------+
+|  +------------------+  +------------------+  |
+|  | [Tab]            |  | [Tab]            |  |
+|  | Fisika & Kimia   |  | Konsep SI & TI   |  |  <- Grid 2 Kolom
+|  | 2 tugas          |  | 1 tugas          |  |  <- (Yellow & Blue)
+|  | Senin 1/2 G343   |  | Senin 3/4 G343   |  |
+|  +------------------+  +------------------+  |
+|  +------------------+  +------------------+  |
+|  | [Tab]            |  | [Tab]            |  |
+|  | Algo & Pemrog 1  |  | Matematika Dsr 1 |  |  <- (Orange & Lavender)
+|  | 3 tugas          |  | 0 tugas          |  |
+|  | Senin 7/8 G114   |  | Senin 9/10 G347  |  |
+|  +------------------+  +------------------+  |
+|  +------------------+  +------------------+  |
+|  | [Tab]            |  | [Tab]            |  |
+|  | Digital Citizen. |  | ISBD             |  |  <- (Coral & Mint)
+|  | 1 tugas          |  | 0 tugas          |  |
+|  | Rabu 6/7 D655    |  | Kamis 3/4 G433   |  |
+|  +------------------+  +------------------+  |
+|  +------------------+  +------------------+  |
+|  | [Tab]            |  | [Tab]            |  |
+|  | Pend. Pancasila  |  | Bisnis & Ekon D. |  |  <- (Yellow & Blue)
+|  | 0 tugas          |  | 1 tugas          |  |
+|  | Kamis 9/10 G216  |  | Jum'at 1/2 E223  |  |
+|  +------------------+  +------------------+  |
+|                                          |
+|       [ (Home)  (Folder)  (+)  (Chats) ] |  <- Floating Pill Dock
++------------------------------------------+
+
+======================= LAYAR 3: CHATS =======================
++------------------------------------------+
+|  Chats                         5 tugas ≡ |  <- Screen Header
++------------------------------------------+
+|  (( ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ )) |
+|  ( (O) Fisika & Kimia Dasar   13.45   ) |  <- Chat Bubble Card
+|  (     Selesaikan resume Bab 3        ) |     (Coral / Wavy Edge)
+|  (( ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ )) |
+|                                          |
+|  (( ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ )) |
+|  ( (O) Konsep SI & TI         Besok   ) |  <- Chat Bubble Card
+|  (     Tugas studi kasus sistem ERP   ) |     (Yellow)
+|  (( ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ )) |
+|                                          |
+|  (( ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ )) |
+|  ( (O) Algoritma & Pemrog 1   Jumat   ) |  <- Chat Bubble Card
+|  (     Praktikum modul percabangan C  ) |     (Orange)
+|  (( ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ )) |
+|                                          |
+|       [ (Home)  (Folder)  (+)  (Chats) ] |  <- Floating Pill Dock
 +------------------------------------------+
 ```
 
@@ -101,13 +145,14 @@ dibuat: 2026-10-14
 
 | Section | Tujuan | Struktur | Komponen dipakai | Perilaku mobile |
 |---|---|---|---|---|
-| **S1. Header & Hero Summary** | Menampilkan nama aplikasi "plss.inget", salam personal, tanggal hari ini, dan ringkasan jumlah tugas mendesak. | Stack gelap kontras tinggi dengan badge status dan teks rangkuman. | `HeroSummaryCard`, `StatusDot` | Menggulung halus bersama layar; teks membungkus rapi. |
-| **S1. Task Stream (Daftar Tugas)** | Menampilkan seluruh tugas aktif yang dikelompokkan berdasarkan batas waktu: Terlambat, Hari Ini, Minggu Ini, Nanti. | Daftar vertikal (*vertical stack*) dengan header grup yang jelas. | `TaskGroupHeader`, `TaskCard`, `CheckboxCircle` | Kartu memanfaatkan lebar penuh kanvas dikurangi margin horizontal 16px. |
-| **S1. Kelompok Selesai (Collapsible)** | Menampung tugas yang telah ditandai selesai secara terlipat agar tidak mengotori daftar tugas aktif. | Header akordeon dengan jumlah `Selesai (N)` dan indikator panah lipat. Default tertutup. | `CollapsibleGroupHeader`, `TaskCard` | Saat diketuk, daftar tugas selesai membuka ke bawah dengan animasi halus. |
-| **S2. Modal Form Tambah/Edit Tugas** | Antarmuka masukan cepat untuk merekam tugas baru atau mengubah tugas lama. | Rute modal Expo Router (`presentation: 'modal'`), bukan bottom sheet kustom. | `TextInputField`, `DateTimePickerField`, `PrimaryButton` | Meluncur sebagai modal native; input judul langsung fokus (*autofocus*). |
-| **S3. Layar Detail Tugas** | Menampilkan detail tugas secara utuh, batas waktu, status pengingat, dan tombol aksi. | Halaman bersih dengan kartu detail dan tombol aksi di bawah. | `DetailHeader`, `ReminderScheduleList`, `PrimaryButton`, `DeleteConfirmationModal` | Tombol 'Tandai Selesai', 'Ubah', dan 'Hapus' mudah diakses. |
-| **S4. Banner Izin Notifikasi** | Memberi tahu alasan dibutuhkannya izin pengingat lokal tanpa mengintimidasi pengguna. | Kartu banner lembut di bagian atas daftar saat izin belum aktif. | `NoticeBanner`, `GhostButton` | Tampil sekali di awal; bisa ditutup jika pengguna menolak tanpa memblokir aplikasi. |
-| **Empty State (Keadaan Kosong)** | Memberikan panduan ramah ketika belum ada tugas yang dicatat atau semua tugas sudah tuntas. | Kartu terpusat dengan ikon ilustrasi buku/ceklist dan tombol pemicu tambah tugas. | `EmptyStateCard`, `SecondaryButton` | Mengisi area tengah layar dengan visual menenangkan. |
+| **S1. Homepage ("Today")** | Menampilkan rangkuman sapaan harian personal, tanggal, dan preview tugas mendesak hari ini. | Komposisi dual-tone: hero card gelap pekat di bagian atas, berpadu kontainer terang di bawah. | `HeroSummaryCard`, `StatusDot`, `TaskCard` | Menggulung halus bersama layar; teks membungkus rapi. |
+| **S2. Layar "Saved" (Katalog Folder Mata Kuliah)** | Menampilkan katalog 8 mata kuliah utama kelas 1KA03 dalam bentuk folder 2 kolom yang informatif dan berwarna cerah. | Grid 2 kolom berisi kartu folder dengan tab khas, jumlah tugas, dan jadwal ruang & dosen. | `CourseFolderCard` | Grid responsif 2 kolom dengan margin seimbang dan ketukan untuk filter tugas matkul. |
+| **S3. Layar "Chats" (Task Stream Gelembung)** | Menampilkan seluruh aliran tugas dalam format gelembung percakapan (*chat bubble*) organik yang ramah dan ekspresif. | Aliran kartu vertikal dengan lekukan sudut bubble dan warna tema yang kaya. | `TaskCard` (Chat Bubble mode), `CheckboxCircle` | Kartu memanfaatkan lebar penuh kanvas dikurangi margin horizontal 16px. |
+| **S4. Modal Form Tambah/Edit Tugas** | Antarmuka masukan cepat untuk merekam tugas baru dengan selector pill mata kuliah 1KA03 instan. | Rute modal Expo Router (`presentation: 'modal'`), bukan bottom sheet kustom. | `CourseSelectorPills`, `TextInputField`, `DateTimePickerField`, `PrimaryButton` | Meluncur sebagai modal native; input judul langsung fokus (*autofocus*). |
+| **S5. Layar Detail Tugas** | Menampilkan detail tugas secara utuh, batas waktu, mata kuliah, status pengingat, dan tombol aksi. | Halaman bersih dengan kartu detail dan tombol aksi di bawah. | `DetailHeader`, `ReminderScheduleList`, `PrimaryButton`, `DeleteConfirmationModal` | Tombol 'Tandai Selesai', 'Ubah', dan 'Hapus' mudah diakses. |
+| **S6. Floating Pill Dock** | Navigasi mengambang dan tombol aksi cepat di bawah layar yang selalu mudah dijangkau satu jempol. | Kapsul melayang di tengah bawah layar memuat navigasi Today, Saved, Chats, dan tombol `+`. | `FloatingPillDock` | Posisi mengambang tetap (*fixed bottom floating*), terlindung padding bawah layar. |
+| **S7. Kelompok Selesai (Collapsible)** | Menampung tugas yang telah ditandai selesai secara terlipat agar tidak mengotori daftar tugas aktif. | Header akordeon dengan jumlah `Selesai (N)` dan indikator panah lipat. Default tertutup. | `CollapsibleGroupHeader`, `TaskCard` | Saat diketuk, daftar tugas selesai membuka ke bawah dengan animasi halus. |
+| **S8. Banner Izin Notifikasi & Empty State** | Memberi tahu alasan izin pengingat lokal dan panduan ramah saat belum ada tugas. | Kartu banner lembut dan kartu status terpusat dengan tombol aksi. | `PermissionBanner`, `EmptyStateCard` | Tampil kontekstual tanpa memblokir alur kerja mahasiswa. |
 
 ---
 
@@ -138,6 +183,18 @@ dibuat: 2026-10-14
 | `--color-text-later` | `#6b21a8` | teks tugas nanti | S |
 | `--color-bg-done` | `#dcfce7` | latar tugas selesai | S |
 | `--color-text-done` | `#166534` | teks tugas selesai | S |
+| `--color-bg-coral` | `#ff6562` | latar kartu bubble & folder coral | S |
+| `--color-text-coral` | `#161513` | teks kartu bubble & folder coral | S |
+| `--color-bg-yellow` | `#ffd027` | latar kartu bubble & folder kuning | S |
+| `--color-text-yellow` | `#161513` | teks kartu bubble & folder kuning | S |
+| `--color-bg-orange` | `#ff8c21` | latar kartu bubble & folder oranye | S |
+| `--color-text-orange` | `#161513` | teks kartu bubble & folder oranye | S |
+| `--color-bg-blue` | `#2563eb` | latar kartu bubble & folder biru | S |
+| `--color-text-blue` | `#ffffff` | teks kartu bubble & folder biru | S |
+| `--color-bg-lavender` | `#c7b5eb` | latar kartu bubble & folder lavender | S |
+| `--color-text-lavender` | `#161513` | teks kartu bubble & folder lavender | S |
+| `--color-bg-mint` | `#36d399` | latar kartu bubble & folder mint | S |
+| `--color-text-mint` | `#161513` | teks kartu bubble & folder mint | S |
 
 **Pasangan kontras yang dipakai** (diperiksa otomatis dan lolos uji WCAG AA):
 
@@ -155,6 +212,12 @@ dibuat: 2026-10-14
 | `--color-text-week` | `--color-bg-week` | normal | 4.5 |
 | `--color-text-later` | `--color-bg-later` | normal | 4.5 |
 | `--color-text-done` | `--color-bg-done` | normal | 4.5 |
+| `--color-text-coral` | `--color-bg-coral` | normal | 4.5 |
+| `--color-text-yellow` | `--color-bg-yellow` | normal | 4.5 |
+| `--color-text-orange` | `--color-bg-orange` | normal | 4.5 |
+| `--color-text-blue` | `--color-bg-blue` | normal | 4.5 |
+| `--color-text-lavender` | `--color-bg-lavender` | normal | 4.5 |
+| `--color-text-mint` | `--color-bg-mint` | normal | 4.5 |
 
 ### 5.2 Tipografi
 
@@ -252,85 +315,159 @@ dibuat: 2026-10-14
 
 ## 7. Komponen
 
-### 7.1 TaskCard (Kartu Tugas)
-- **Tujuan:** Menampilkan satu item tugas secara padat dan jelas, mencakup status centang, judul, mata kuliah, dan tanggal deadline.
+### 7.1 HeroSummaryCard & Homepage Bergaya "Today"
+- **Tujuan:** Memberikan fokus harian langsung di bagian atas layar sesuai layar "Today" pada `reference/reference.jpg`: menyapa mahasiswa dengan sapaan hangat personal, menampilkan tanggal hari ini, stiker ilustrasi playful, serta ringkasan tugas mendesak hari ini.
 - **Anatomi:**
-  - Lingkaran centang (*CheckboxCircle*) di sebelah kiri.
-  - Judul tugas (*Task Title*) di tengah atas.
-  - Nama mata kuliah dan tanggal deadline di bawah judul (misal: "Basis Data · Besok, 23.59").
-  - Area kartu dapat diketuk untuk membuka Layar Detail Tugas (S3).
-- **Varian:**
-  - `Urgent`: Berlatar `--color-bg-urgent` dengan teks `--color-text-urgent`.
-  - `Today`: Berlatar `--color-bg-today` dengan teks `--color-text-today`.
-  - `Week`: Berlatar `--color-bg-week` dengan teks `--color-text-week`.
-  - `Later`: Berlatar `--color-bg-later` dengan teks `--color-text-later`.
-  - `Done`: Berlatar `--color-bg-done` dengan teks tercoret `--color-text-done`.
-- **Ukuran:** Tinggi fleksibel menyesuaikan panjang judul (minimal target sentuh 48px).
+  - Kartu atas berlatar gelap pekat (`--color-surface-dark`) dengan sudut membulat lebar (`--radius-xl`).
+  - Baris Header: Nama brand "Today" atau "plss.inget" di kiri, tanggal hari ini di kanan (misal: "• Okt '26 Rabu").
+  - Teks sapaan personal bergaya percakapan: *"Halo, Mahasiswa! Hari ini ada X tugas kuliah yang harus diselesaikan: ..."*
+  - Rangkuman tugas mendesak hari ini dengan indikator mata kuliah kelas 1KA03 dan ikon/stiker visual yang ekspresif.
+  - Kontainer bawah berlatar terang (`--color-surface`) dengan sudut melengkung besar yang menampung daftar preview tugas ("Tugas Mendesak").
+- **State:** Default, Loading (skeleton placeholder).
+
+### 7.2 TaskCard (Kartu Tugas Bergaya Chat Bubble "Chats")
+- **Tujuan:** Menampilkan tugas kuliah dalam bentuk gelembung percakapan (*chat bubble*) dengan sudut melengkung ramah dan kontur organik mengacu langsung pada layar "Chats" di `reference/reference.jpg`.
+- **Anatomi:**
+  - Kontur gelembung chat (*organic chat bubble*) dengan radius melengkung ramah (`--radius-lg` / `--radius-xl`) dan sudut asimetris/ekspresif.
+  - Lingkaran avatar atau inisial mata kuliah / dosen di sisi kiri (misal: "AR" untuk Ariyanto, "EL" untuk Elvina).
+  - Header bubble: Nama mata kuliah tebal dan waktu batas deadline di sebelah kanan (misal: "Konsep SI & TI · Besok 23.59").
+  - Isi pesan tugas: Judul tugas kuliah (misal: "Laporan Praktikum Percabangan C") dan deskripsi/catatan ringkas.
+  - Lingkaran centang (*CheckboxCircle*) atau status bubble untuk menandai tugas selesai.
+  - Stiker/ikon dekoratif kontekstual di pojok kanan bubble seperti pada referensi mockup.
+- **Varian Warna:**
+  - Varian Vibrant Folder & Chats: Coral (`--color-bg-coral`), Yellow (`--color-bg-yellow`), Orange (`--color-bg-orange`), Blue (`--color-bg-blue`), Lavender (`--color-bg-lavender`), Mint (`--color-bg-mint`).
+  - Varian Semantik Deadline: `Urgent` (`--color-bg-urgent`), `Today` (`--color-bg-today`), `Week` (`--color-bg-week`), `Later` (`--color-bg-later`), `Done` (`--color-bg-done` dengan teks coret).
+- **Ukuran:** Tinggi fleksibel mengikuti panjang teks judul (target sentuh minimal 48px).
 - **State:** Default, Pressed (`scale: 0.98`), Done.
-- **Aksesibilitas:** Komponen tombol yang dapat diakses dengan label mencakup judul tugas, mata kuliah, dan batas waktu.
 
-### 7.2 FloatingActionPill (Dok Aksi Tambah Tugas Tunggal)
-- **Tujuan:** Menyediakan akses instan satu jempol untuk membuka form penambahan tugas dari layar utama.
+### 7.3 CourseFolderCard (Grid 2 Kolom 8 Folder Mata Kuliah "Saved")
+- **Tujuan:** Menampilkan 8 mata kuliah utama kelas 1KA03 dalam bentuk kartu folder visual 2 kolom yang informatif, menarik, dan terstruktur sesuai layar "Saved" pada `reference/reference.jpg`.
 - **Anatomi:**
-  - Satu tombol berbentuk kapsul/pill penuh (`--radius-full`) berlatar gelap pekat (`--color-surface-dark`).
-  - Teks: `+ Tambah Tugas` dengan warna putih (`--color-text-on-dark`).
-  - Posisi: Mengambang di tengah bawah layar (*bottom centered*), berjarak 24px dari dasar layar.
-- **Ukuran:** Tinggi `48px` (`--control-h`), padding horizontal `24px` (`--space-6`).
-- **State:**
-  - Default: Bayangan tegas (`--shadow-lg`).
-  - Pressed: Sedikit mengecil (`scale: 0.96`) dengan durasi `--dur-fast`.
-- **Aturan:** Selalu mengambang di atas konten; beri bantalan scroll bawah (*bottom inset*) pada daftar tugas minimal `80px` agar kartu paling bawah tidak tertutup.
+  - Kartu berbentuk folder dengan tab khas di bagian atas kiri (*folder tab header*).
+  - Elemen tumpukan kartu/stiker di belakang tab folder yang mencerminkan materi kuliah.
+  - Latar kartu berwarna vibrant sesuai `colorKey` mata kuliah (Coral, Yellow, Orange, Blue, Lavender, Mint) dengan kontras teks yang lolos WCAG AA (>= 4.5:1).
+  - Nama mata kuliah: Judul singkat (`shortName`, bold) dan judul lengkap (`fullName`, reguler).
+  - Informasi kontekstual: Jumlah tugas aktif ("X tugas") dan ringkasan jadwal ruang/dosen (misal: "Senin 1/2 G343 · ARIYANTO").
+  - Avatar mini dosen atau badge subjek di bagian pojok bawah folder.
+- **Daftar 8 Folder Mata Kuliah 1KA03:**
+  1. *Fisika & Kimia Dasar* (`yellow`) — Sesi: Senin 1/2 G343 (ARIYANTO) & Rabu 8/9 D655 (ERMAWATI).
+  2. *Konsep Sist. & Tek. Sist. Inf.* (`blue`) — Sesi: Senin 3/4 G343 (IDA ASTUTI), Kamis 5/6 G433 (SARI NOORLIMA YANTI), Jum'at 3/4 E223 (MASIMBANGAN SABARINA H/RIZKI ARIYANI).
+  3. *Algoritma & Pemrograman 1* (`orange`) — Sesi: Senin 7/8 G114 (ELVINA), Rabu 1/2 D623 (PURWANTI), Rabu 3/4 D623 (RINA REFIANTI MUTIARA).
+  4. *Matematika Dasar 1* (`lavender`) — Sesi: Senin 9/10 G347 (HERIK SUGERU), Kamis 1/2 G218 (NOLA MARINA).
+  5. *Digital Citizenship* (`coral`) — Sesi: Rabu 6/7 D655 (IRNA FITRIYAH).
+  6. *Ilmu Sosial & Budaya Dasar* (`mint`) — Sesi: Kamis 3/4 G433 (ADELIA RIANA DEWI).
+  7. *Pendidikan Pancasila* (`yellow`) — Sesi: Kamis 9/10 G216 (METI NURHAYATI).
+  8. *Peng. Bisnis dan Ekonomi Digital* (`blue`) — Sesi: Jum'at 1/2 E223 (KARTIKA SARI).
+- **Interaksi:** Mengetuk folder akan menyaring (*filter*) daftar tugas untuk hanya menampilkan tugas mata kuliah tersebut.
 
-### 7.3 HeroSummaryCard (Kartu Rangkuman Hari Ini)
-- **Tujuan:** Memberikan fokus harian langsung di bagian atas layar: menyapa mahasiswa dan menampilkan rangkuman tugas paling mendesak.
+### 7.4 CourseSelectorPills (Pill Selector 8 Mata Kuliah di Form Modal)
+- **Tujuan:** Mempercepat pengisian mata kuliah pada form tambah/ubah tugas menjadi 1 ketukan instan (< 1 detik), tanpa mahasiswa perlu mengetik nama mata kuliah secara manual.
 - **Anatomi:**
-  - Latar gelap pekat (`--color-surface-dark`) dengan sudut membulat lebar (`--radius-xl`).
-  - Header: Nama aplikasi "plss.inget" di kiri, tanggal hari ini di kanan.
-  - Teks sapaan personal ("Halo, Mahasiswa! Hari ini ada 2 tugas yang harus diselesaikan:").
-  - Daftar ringkas 1-2 tugas hari ini.
+  - Deretan kapsul horizontal (*horizontal scrolling pill list*) berisi 8 mata kuliah kelas 1KA03 ditambah opsi "Umum / Tanpa Matkul".
+  - Tiap pill memuat nama singkat mata kuliah (`shortName`) dan dot aksen warna sesuai `colorKey`.
+  - State Unselected: Latar `--color-surface-muted`, border `--color-border`, teks `--color-text-muted`.
+  - State Selected: Latar warna vibrant sesuai mata kuliah (atau `--color-primary`), teks kontras tinggi, border tegas.
+- **Ukuran:** Tinggi `36px` (`--control-sm-h`), padding horizontal `14px`, target sentuh memadai.
 
-### 7.4 CollapsibleGroup (Kelompok Selesai Terlipat)
+### 7.5 FloatingPillDock (Dok Navigasi & Aksi Mengambang di Bawah Layar)
+- **Tujuan:** Menyediakan dok navigasi terpadu dan tombol aksi tambah tugas instan yang mengambang di bawah layar, terinspirasi langsung dari ketiga layar `reference/reference.jpg`.
+- **Anatomi:**
+  - Kapsul melayang tunggal dengan radius penuh (`--radius-full`), latar putih/terang (`--color-surface`), bayangan melayang tegas (`--shadow-lg`), dan batas halus (`--color-border`).
+  - Posisi: Mengambang di tengah bawah layar (*bottom centered*), berjarak 20–24px dari tepi bawah layar, `z-index: 50` (`--z-dock`).
+  - Item Dok:
+    1. Tombol Layar "Today" (Tampilan ringkasan harian dan tugas mendesak).
+    2. Tombol Layar "Saved" (Tampilan 8 folder mata kuliah 1KA03).
+    3. Tombol Layar "Chats" (Tampilan aliran tugas bubble).
+    4. Tombol Aksi Tambah `+` (Tombol pill hitam berlatar gelap `--color-surface-dark` untuk tambah tugas cepat).
+- **Ukuran:** Tinggi `56px`, target sentuh minimum 44px (`--touch-target-min`).
+- **State:** Active tab berlatar `--color-surface-muted` dengan teks bold, inactive berteks `--color-text-muted`. Tombol `+` memiliki animasi tekan (`scale: 0.94`).
+
+### 7.6 CollapsibleGroup (Kelompok Selesai Terlipat)
 - **Tujuan:** Menyimpan tugas yang sudah selesai agar tidak mengaburkan tugas aktif, tetapi tetap mudah diakses bila ingin diperiksa kembali.
 - **Anatomi:**
   - Header kelompok bertuliskan `Selesai (N)` dengan penanda panah lipat (`▸` saat tertutup, `▾` saat terbuka).
   - Status default: **Tertutup (Collapsed)**.
   - Saat diketuk, daftar tugas selesai terbuka ke bawah dengan kartu bergaya `--color-bg-done`.
 
-### 7.5 Form Modal Tambah/Edit Tugas
+### 7.7 Form Modal Tambah/Edit Tugas
 - **Tujuan:** Merekam atau mengubah tugas dengan kecepatan tinggi (< 10 detik).
 - **Struktur:**
   - Dijalankan sebagai **rute modal Expo Router** (`presentation: 'modal'`), bukan bottom sheet kustom.
   - Header modal: Tombol 'Batal' di kiri, judul modal di tengah ("Tambah Tugas" / "Ubah Tugas"), tombol 'Simpan' di kanan.
   - Field:
     1. Judul Tugas (Wajib, teks biasa, maks 120 karakter, *autofocus*).
-    2. Batas Waktu / Deadline (Wajib, pemilih tanggal & jam, default: besok 23.59).
-    3. Mata Kuliah (Opsional, teks biasa, maks 80 karakter).
+    2. Mata Kuliah via `CourseSelectorPills` (Pilihan 1 ketukan dari 8 mata kuliah 1KA03 atau input teks kustom).
+    3. Batas Waktu / Deadline (Wajib, pemilih tanggal & jam, default: besok 23.59).
     4. Catatan / Deskripsi (Opsional, teks banyak baris / multiline).
 
-### 7.6 DeleteConfirmationModal (Dialog Konfirmasi Hapus)
+### 7.8 DeleteConfirmationModal (Dialog Konfirmasi Hapus)
 - **Tujuan:** Mencegah penghapusan tugas dan pembatalan notifikasi secara tidak sengaja.
 - **Teks Dialog (Tunggal & Terstandarisasi):**
   > *"Hapus tugas '[Judul]'? Pengingat terjadwal ikut dibatalkan dan tindakan ini tidak dapat diurungkan."*
 - **Aksi:** Tombol 'Batal' (sekunder) dan tombol 'Hapus' (merah / bahaya).
 
+### 7.9 EmptyStateCard & Keadaan Kosong Mata Kuliah
+- **Tujuan:** Memberikan panduan ramah dan tombol aksi terpusat untuk langsung mencatat tugas saat daftar tugas utama atau daftar tugas per mata kuliah masih kosong.
+- **Anatomi:**
+  - Kartu berlatar putih (`--color-surface`) dengan batas halus (`--color-border`), sudut melengkung ramah (`--radius-lg` / `--radius-xl`), dan bayangan halus (`--shadow-sm`).
+  - Ikon 3D visual tanpa latar belakang (`icons-no-bg`) berukuran 48–54px yang dipilih secara acak (deterministik berbasis matkul/status) dari `src/constants/iconAssets.ts` untuk memberikan kesan playful dan ramah sesuai karakter Mode B.
+  - Judul keadaan kosong: Tebal (`--font-weight-bold`), ukuran 16px (`--text-md`), warna teks utama (`--color-text`), rata tengah (*center*).
+  - Teks deskripsi: Ukuran 13–14px (`--text-sm`), warna teks sekunder (`--color-text-muted`), rata tengah.
+  - Tombol Aksi Utama Besar (*Primary Big Button*): Tombol lebar penuh atau terpusat berlatar gelap pekat (`--color-surface-dark`), teks putih kontras tinggi (`--color-text-on-dark`), tinggi minimum 48px (`--control-h`), radius penuh (`--radius-full`), bayangan halus (`--shadow-sm`), dan respon tekan lembut (`transform: scale(0.96)`).
+- **Interaksi:** Mengetuk tombol pada keadaan kosong per-matkul langsung membuka form tambah tugas dengan mata kuliah tersebut otomatis terisi (*prefilled*).
+
+### 7.10 BackButton (Tombol Kembali Terstandarisasi)
+- **Tujuan:** Menyeragamkan interaksi kembali di seluruh aplikasi dengan layout konsisten, target sentuh ergonomis, dan ikon panah (`Icon name="kembali"`) yang presisi di tengah vertikal (*vertical centered*).
+- **Anatomi:**
+  - Bentuk kapsul/pill memanjang (`--radius-full`, 9999px) berlatar putih (`--color-surface`) dengan bingkai halus (`--color-border`) dan bayangan lembut (`--shadow-sm`).
+  - Tata letak baris horizontal (`flexDirection: 'row'`, `alignItems: 'center'`) dengan jarak antar-elemen (`gap: 6px`).
+  - Tinggi tombol: Minimal 36px (`minHeight: 36px`) dengan area sentuh minimum 44px (`hitSlop={8}`).
+  - Ikon panah kembali: Ukuran 14px (`iconSize: 14`), menggunakan komponen `Icon` (`name="kembali"`), dengan rendering simetris sub-pixel yang terpusat secara optik dan vertikal.
+  - Teks label: Ukuran 13px (`typography.sizes.xs + 1`), tebal (`font-weight: 700`), warna teks utama (`--color-text`), tinggi baris `18px`, `includeFontPadding: false`, dan `textAlignVertical: 'center'`.
+  - Respon sentuh: Reduksi skala lembut (`transform: scale(0.98)`) dan opasitas 75%.
+- **Daftar Lokasi Tombol Kembali di Seluruh Aplikasi:**
+  1. **Layar Filter Mata Kuliah (`src/app/index.tsx`)**:
+     - *Posisi:* Di atas banner detail mata kuliah pada tab Matkul (Saved).
+     - *Label:* `"Semua Matkul"`.
+     - *Aksi:* Mengembalikan tampilan ke katalog grid 8 folder mata kuliah (`setSelectedCourseFilter(null)`).
+  2. **Layar Modal Form Tambah/Ubah Tugas (`src/app/task/form.tsx`)**:
+     - *Posisi:* Di atas judul halaman form ("Tambah Tugas" / "Ubah Tugas") serta pada tampilan penanganan error muat tugas.
+     - *Label:* `"Kembali"`.
+     - *Aksi:* Menutup modal/kembali ke layar sebelumnya via `router.back()`.
+  3. **Layar Detail Tugas (`src/app/task/[id].tsx`)**:
+     - *Posisi:* Di atas kartu informasi detail tugas.
+     - *Label:* `"Kembali"`.
+     - *Aksi:* Kembali ke layar sebelumnya (`router.back()`) atau fallback ke beranda (`router.replace('/')`).
+  4. **Layar Tugas Tidak Ditemukan / Error State (`src/app/task/[id].tsx`)**:
+     - *Posisi:* Di bawah pesan "Tugas Tidak Ditemukan".
+     - *Label:* `"Kembali ke Daftar"`.
+     - *Aksi:* Mengarahkan pengguna kembali ke daftar utama via fallback `router.replace('/')`.
+
 ---
 
 ## 8. Pola interaksi dan alur
 
-1. **Alur Tambah Tugas (Target < 10 Detik):**
-   - Mahasiswa mengetuk tombol pill `+ Tambah Tugas` di bawah layar.
+1. **Alur Tambah Tugas Cepat (Target < 10 Detik):**
+   - Mahasiswa mengetuk tombol `+` pada `FloatingPillDock` di bawah layar.
    - Layar modal native Expo Router muncul (`presentation: 'modal'`).
    - Input judul tugas langsung fokus dan keyboard virtual muncul otomatis.
-   - Mahasiswa mengetik judul tugas, menerima batas waktu bawaan (besok 23.59) atau mengubahnya dengan beberapa ketukan.
+   - Mahasiswa mengetik judul tugas, memilih mata kuliah via `CourseSelectorPills` dengan 1 ketukan, menerima batas waktu bawaan (besok 23.59) atau mengubahnya dengan beberapa ketukan.
    - Mengetuk "Simpan" menutup modal, tugas langsung muncul di kelompok yang sesuai, dan notifikasi lokal 24 jam serta 3 jam sebelum deadline otomatis dijadwalkan.
-2. **Alur Penyelesaian Tugas:**
-   - Mengetuk lingkaran centang di kartu tugas menandai tugas selesai.
+2. **Alur Berpindah Layar (Navigasi Dok):**
+   - Mahasiswa mengetuk ikon "Today" untuk melihat ringkasan hero harian dan preview tugas mendesak.
+   - Mahasiswa mengetuk ikon "Saved" untuk membuka grid 2 kolom 8 folder mata kuliah 1KA03.
+   - Mahasiswa mengetuk ikon "Chats" untuk melihat aliran tugas lengkap dalam gelembung percakapan warna-warni.
+3. **Alur Eksplorasi Folder Mata Kuliah:**
+   - Di layar "Saved", mahasiswa mengetuk salah satu kartu folder (misal: *Algoritma & Pemrograman 1*).
+   - Tampilan menyaring tugas yang terhubung dengan mata kuliah tersebut serta menampilkan informasi dosen, sesi ruang, dan jadwal kelas.
+4. **Alur Penyelesaian Tugas:**
+   - Mengetuk lingkaran centang di kartu tugas (baik di layar Today maupun Chats) menandai tugas selesai.
    - Kartu tugas langsung berpindah ke dalam kelompok "Selesai (N)".
    - Semua jadwal pengingat untuk tugas tersebut otomatis dibatalkan.
-3. **Alur Membuka Tugas Selesai:**
+5. **Alur Membuka Tugas Selesai:**
    - Mahasiswa menggulir ke bagian bawah daftar utama.
    - Mengetuk baris `Selesai (N)` membuka lipatan daftar tugas yang telah rampung. Mengetuk kembali akan melipatnya kembali.
-4. **Alur Penghapusan:**
+6. **Alur Penghapusan:**
    - Mengetuk ikon hapus pada detail tugas memunculkan dialog konfirmasi standar. Mengetuk "Hapus" menghapus tugas permanen dan membatalkan jadwal pengingat.
 
 ---
@@ -339,11 +476,14 @@ dibuat: 2026-10-14
 
 | # | Elemen | Pemicu | Properti | Durasi | Easing | Keyakinan |
 |---|---|---|---|---|---|---|
-| 1 | Modal Form Tambah Tugas | Ketuk `+ Tambah Tugas` | Rute modal native OS via Expo Router | Bawaan OS | Bawaan OS | T |
-| 2 | Kartu Tugas ditekan | Ketuk / Press | `transform: scale(0.98)` | `150ms` | `--ease-out` | S |
-| 3 | Centang Selesai | Ketuk Checkbox | `scale`, `backgroundColor` | `200ms` | `--ease-out` | S |
-| 4 | Lipatan Kelompok Selesai | Ketuk header `Selesai (N)` | `height`, `opacity` | `250ms` | `--ease-in-out` | S |
-| 5 | Penghapusan Kartu | Konfirmasi Hapus disetujui | `opacity: 0`, `height: 0` | `250ms` | `--ease-out` | S |
+| 1 | Modal Form Tambah Tugas | Ketuk `+` pada dock | Rute modal native OS via Expo Router | Bawaan OS | Bawaan OS | T |
+| 2 | Kartu Tugas (Chat Bubble) ditekan | Ketuk / Press | `transform: scale(0.98)` | `150ms` | `--ease-out` | S |
+| 3 | Folder Mata Kuliah ditekan | Ketuk / Press | `transform: scale(0.97)` | `150ms` | `--ease-out` | S |
+| 4 | Tombol Dock ditekan | Ketuk / Press | `transform: scale(0.92)` | `150ms` | `--ease-out` | S |
+| 5 | CourseSelectorPill dipilih | Ketuk Pill | `backgroundColor`, `scale` | `150ms` | `--ease-out` | S |
+| 6 | Centang Selesai | Ketuk Checkbox | `scale`, `backgroundColor` | `200ms` | `--ease-out` | S |
+| 7 | Lipatan Kelompok Selesai | Ketuk header `Selesai (N)` | `height`, `opacity` | `250ms` | `--ease-in-out` | S |
+| 8 | Penghapusan Kartu | Konfirmasi Hapus disetujui | `opacity: 0`, `height: 0` | `250ms` | `--ease-out` | S |
 
 - **Aturan Aksesibilitas Gerak:** Jika opsi sistem `prefers-reduced-motion` aktif, matikan animasi scale dan gunakan transisi instan demi kenyamanan pengguna.
 
@@ -413,6 +553,20 @@ dibuat: 2026-10-14
   --color-bg-done: #dcfce7;
   --color-text-done: #166534;
 
+  /* Warna Vibrant Bubble Card & Folder (Saved & Chats) */
+  --color-bg-coral: #ff6562;
+  --color-text-coral: #161513;
+  --color-bg-yellow: #ffd027;
+  --color-text-yellow: #161513;
+  --color-bg-orange: #ff8c21;
+  --color-text-orange: #161513;
+  --color-bg-blue: #2563eb;
+  --color-text-blue: #ffffff;
+  --color-bg-lavender: #c7b5eb;
+  --color-text-lavender: #161513;
+  --color-bg-mint: #36d399;
+  --color-text-mint: #161513;
+
   /* Tipografi */
   --font-sans: system-ui, -apple-system, Roboto, sans-serif;
   --text-xs: 0.75rem;
@@ -468,8 +622,24 @@ dibuat: 2026-10-14
 Seluruh token di atas dipetakan secara lengkap ke dalam objek tema TypeScript `DesignTokens` pada `src/constants/theme.ts` sehingga pengembang tidak perlu menebak nilai properti:
 
 ```typescript
+export type VibrantColorKey = 'coral' | 'yellow' | 'orange' | 'blue' | 'lavender' | 'mint';
+
+export interface ColorPair {
+  bg: string;
+  text: string;
+}
+
+export const VibrantColors: Record<VibrantColorKey, ColorPair> = {
+  coral: { bg: '#ff6562', text: '#161513' },
+  yellow: { bg: '#ffd027', text: '#161513' },
+  orange: { bg: '#ff8c21', text: '#161513' },
+  blue: { bg: '#2563eb', text: '#ffffff' },
+  lavender: { bg: '#c7b5eb', text: '#161513' },
+  mint: { bg: '#36d399', text: '#161513' },
+} as const;
+
 export const DesignTokens = {
-  // 1. Warna (Warna kanvas, teks, aksi, dan status deadline)
+  // 1. Warna (Warna kanvas, teks, aksi, status deadline, dan palet vibrant)
   colors: {
     bg: '#f8f5f0',
     surface: '#ffffff',
@@ -487,6 +657,7 @@ export const DesignTokens = {
     week: { bg: '#dbeafe', text: '#1e40af' },
     later: { bg: '#f3e8ff', text: '#6b21a8' },
     done: { bg: '#dcfce7', text: '#166534' },
+    vibrant: VibrantColors,
   },
 
   // 2. Spasi (Pixel)
@@ -586,21 +757,26 @@ export const DesignTokens = {
 ```text
 src/
 ├── app/
-│   ├── _layout.tsx           # Root navigation & modal stack config
-│   ├── index.tsx             # S1: Layar Utama (Daftar Tugas & Hero Card)
-│   ├── add.tsx               # S2: Modal Tambah Tugas (presentation: 'modal')
+│   ├── _layout.tsx              # Root navigation & modal stack config
+│   ├── index.tsx                # S1: Layar Utama (Today / Chats / Saved)
+│   ├── notification-permission.tsx # S8: Layar izin notifikasi
 │   └── task/
-│       └── [id].tsx          # S3: Layar Detail Tugas
+│       ├── form.tsx             # S4: Modal Tambah/Ubah Tugas (dengan CourseSelectorPills)
+│       └── [id].tsx             # S5: Layar Detail Tugas
 ├── components/
-│   ├── TaskCard.tsx          # Kartu item tugas
-│   ├── FloatingActionPill.tsx# Dok tombol aksi tambah tugas tunggal
-│   ├── HeroSummaryCard.tsx   # Kartu sapaan & ringkasan atas
-│   ├── CollapsibleGroup.tsx  # Akordeon kelompok tugas selesai
-│   ├── EmptyState.tsx        # Tampilan saat tugas kosong
-│   ├── PermissionBanner.tsx  # Banner izin notifikasi lokal
-│   └── DeleteDialog.tsx      # Modal konfirmasi hapus tugas
+│   ├── TaskCard.tsx             # S3: Kartu item tugas bergaya Chat Bubble ("Chats")
+│   ├── CourseFolderCard.tsx     # S2: Kartu folder 2 kolom 8 mata kuliah 1KA03 ("Saved")
+│   ├── CourseSelectorPills.tsx  # S4: Pills selector 8 mata kuliah 1KA03 di form modal
+│   ├── FloatingPillDock.tsx     # S6: Dok navigasi & aksi mengambang di bawah layar
+│   ├── HeroSummaryCard.tsx      # S1: Kartu sapaan & ringkasan atas bergaya "Today"
+│   ├── CollapsibleGroup.tsx     # S7: Akordeon kelompok tugas selesai
+│   ├── PermissionBanner.tsx     # S8: Banner izin notifikasi lokal
+│   ├── DeleteDialog.tsx         # S5: Modal konfirmasi hapus tugas terstandarisasi
+│   ├── BackButton.tsx           # Tombol kembali terstandarisasi (pill, chevron centered vertikal)
+│   └── Icon.tsx                 # Ikon representatif UI
 └── constants/
-    └── theme.ts              # Nilai token desain
+    ├── theme.ts                 # Token desain & palet warna vibrant (WCAG AA >= 4.5:1)
+    └── courses.ts               # Data 8 mata kuliah utama kelas 1KA03 (jadwal, ruang, dosen)
 ```
 
 ---
@@ -611,6 +787,7 @@ src/
 |---|---|
 | Gunakan objek tema `DesignTokens` dari `src/constants/theme.ts` untuk seluruh penataan gaya | Menulis nilai warna atau angka ukuran mentah di file komponen |
 | Gunakan rute modal Expo Router (`presentation: 'modal'`) untuk form penambahan tugas | Membuat komponen custom bottom sheet yang rumit dan berat |
+| Manfaatkan `CourseSelectorPills` untuk mempercepat pemilihan 8 mata kuliah 1KA03 dalam 1 ketukan | Memaksa mahasiswa mengetik nama mata kuliah berulang-ulang secara manual |
 | Pertahankan target sentuh minimal 44x44px pada setiap tombol dan checkbox | Membuat tombol kecil yang sulit diketuk mahasiswa saat terburu-buru |
 | Biarkan kelompok tugas Selesai terlipat rapi secara default | Menumpuk tugas selesai bercampur dengan tugas aktif yang mendesak |
 | Tampilkan deadline dalam format tanggal dan jam yang ramah ("Besok, 23.59") | Menampilkan format hitung mundur detik/jam dinamis yang mengalihkan perhatian |
@@ -622,40 +799,40 @@ src/
 
 | Pemeriksaan | Hasil | Tanggal |
 |---|---|---|
-| **Struktur Wajib Dokumen (Lint)** | Lolos 10/10 bagian wajib sesuai aturan `slicing-skill.md` | 2026-10-14 |
-| **Kontras Teks (WCAG 2.1 AA)** | Seluruh 12 pasangan warna teks & latar lolos rasio $\ge 4.5:1$ | 2026-10-14 |
-| **Target Sentuh Minimum** | Standar kontrol ditetapkan minimal 48px (`--control-h`), target sentuh 44px | 2026-10-14 |
-| **Kesesuaian Fitur PRD** | Seluruh FR (FR-1 s.d FR-8), entitas Task, dan 4 layar (S1-S4) terakomodasi | 2026-10-14 |
+| **Struktur Wajib Dokumen (Lint)** | Lolos 10/10 bagian wajib sesuai aturan `slicing-skill.md` | 2026-10-15 |
+| **Kontras Teks (WCAG 2.1 AA)** | Seluruh 18 pasangan warna teks & latar lolos rasio $\ge 4.5:1$ (termasuk 6 warna vibrant) | 2026-10-15 |
+| **Target Sentuh Minimum** | Standar kontrol ditetapkan minimal 48px (`--control-h`), target sentuh 44px | 2026-10-15 |
+| **Kesesuaian Fitur PRD & Mockup** | 3 layar mockup (`reference.jpg`), 8 mata kuliah 1KA03, dan seluruh komponen terakomodasi | 2026-10-15 |
 
 ---
 
 ## 15. Diamati vs diasumsikan
 
-| Diamati dari referensi (`reference.jpg`) | Diasumsikan / diputuskan sendiri untuk PRD |
+| Diamati dari referensi (`reference.jpg`) | Diasumsikan / diputuskan sendiri untuk PRD & 1KA03 |
 |---|---|
-| Kartu atas berlatar gelap pekat dengan greeting personal dan visual playful | Diterapkan sebagai Hero Summary Card untuk merangkum tugas mendesak hari ini |
-| Dok navigasi mengambang di bawah layar | Disederhanakan menjadi satu Floating Action Pill tunggal `+ Tambah Tugas` |
-| Aliran kartu bubble berwarna cerah ceria (Kuning, Biru, Coral, Lavender) | Dipetakan menjadi warna semantik deadline (Terlambat, Hari Ini, Minggu Ini, Nanti) |
-| Detail interaksi hover, fokus, dan transisi animasi spesifik tidak ada di foto statis | Mengikuti transisi modal bawaan OS Expo Router dan kurva `--ease-out` |
+| Layar 1 ("Today"): Kartu atas berlatar gelap pekat dengan greeting personal kontekstual dan elemen stiker playful | Diterapkan sebagai `HeroSummaryCard` dan Homepage "Today" yang merangkum tugas mendesak dari mata kuliah aktif hari ini |
+| Layar 2 ("Saved"): Katalog folder kategori 2 kolom dengan warna vibrant (Yellow, Blue, Orange, Lavender, Coral, Mint) | Dipetakan langsung sebagai `CourseFolderCard` untuk 8 mata kuliah utama kelas 1KA03 lengkap dengan jadwal sesi, ruang, dan dosen |
+| Layar 3 ("Chats"): Aliran kartu tugas gelembung percakapan (*chat bubble*) dengan sudut melengkung ramah/organik | Diterapkan sebagai `TaskCard` bergaya Chat Bubble dengan warna vibrant per mata kuliah atau urgensi waktu |
+| Floating Pill Dock: Dok mengambang di bawah layar pada ketiga layar mockup | Diimplementasikan sebagai `FloatingPillDock` tunggal yang melayang stabil di bawah layar untuk navigasi Today/Saved/Chats dan aksi `+` |
+| Detail interaksi hover, fokus, dan transisi animasi spesifik tidak ada di foto statis | Mengikuti transisi modal bawaan OS Expo Router, animasi skala lembut saat ditekan, dan kurva `--ease-out` |
 
 ---
 
 ## 16. Ditunda ke versi berikutnya
 
-Fitur dan elemen visual berikut dipindahkan dari ruang lingkup MVP (versi 1) ke fase rilis berikutnya agar proyek tetap kecil, cepat, dan fokus sesuai batasan PRD:
+Fitur dan elemen visual sekunder berikut ditunda ke fase pengembangan lanjutan agar performa aplikasi tetap ringan dan fokus:
 
-1. **Folder Mata Kuliah & Komponen `CourseFolderCard`**:
-   - *Alasan penundaan:* Versi 1 berfokus penuh pada penyelesaian tugas berdasar urgensi waktu (G1, G2, G3). Pengelompokan visual berbasis kartu folder 2 kolom ditunda ke versi lanjutan.
-2. **Selector Pill Mata Kuliah (`CourseSelectorPills`)**:
-   - *Alasan penundaan:* Pada form penambahan tugas versi 1, field mata kuliah disediakan sebagai input teks biasa (*text input*) opsional (maksimal 80 karakter) tanpa perlu chip pemilih dinamis.
-3. **Dropdown Filter Tugas**:
-   - *Alasan penundaan:* Seluruh tugas aktif sudah otomatis terurut dan terkelompok berdasarkan batas waktu terdekat; filter interaktif tambahan belum dibutuhkan.
-4. **Hitung Mundur Dinamis ("Sisa X jam")**:
+> **Catatan Pembaruan v0.2.0:** Komponen inti visual dari referensi mockup yaitu `CourseFolderCard` (grid 2 kolom 8 folder mata kuliah 1KA03), `CourseSelectorPills` di form modal, `TaskCard` bergaya Chat Bubble, Homepage "Today", dan `FloatingPillDock` **telah diaktifkan kembali secara resmi pada versi 0.2.0**.
+
+Item yang masih ditunda untuk fase berikutnya:
+1. **Dropdown Filter Multi-Kriteria Lanjutan**:
+   - *Alasan penundaan:* Pengelompokan tugas otomatis berdasarkan batas waktu dan saringan folder mata kuliah di layar Saved sudah mencukupi kebutuhan pengguna tanpa menambah beban kognitif filter kompleks.
+2. **Hitung Mundur Detik Dinamis ("Sisa X jam Y menit")**:
    - *Alasan penundaan:* Tampilan waktu disederhanakan menjadi format tanggal dan jam statis yang jelas (misal: "Hari ini, 23.59" atau "Besok, 21.00") untuk menjaga kebersihan visual kartu dan menghemat konsumsi render baterai.
-5. **Getaran Umpan Balik (*Haptic Feedback*)**:
+3. **Getaran Umpan Balik (*Haptic Feedback*)**:
    - *Alasan penundaan:* Menjaga paket dependensi aplikasi tetap minimal tanpa memerlukan pustaka native `expo-haptics` di tahap awal.
-6. **Animasi Dok Menyembunyikan Diri Saat Scroll**:
-   - *Alasan penundaan:* Tombol aksi `+ Tambah Tugas` tetap stabil mengambang di bawah layar tanpa perlu logika listener scroll yang berpotensi membebani performa daftar tugas.
+4. **Animasi Dok Menyembunyikan Diri Saat Scroll**:
+   - *Alasan penundaan:* Dok navigasi `FloatingPillDock` tetap stabil mengambang di bawah layar tanpa perlu listener scroll yang berpotensi membebani performa daftar tugas.
 
 ---
 
@@ -669,6 +846,11 @@ Fitur dan elemen visual berikut dipindahkan dari ruang lingkup MVP (versi 1) ke 
 
 | Versi | Tanggal | Perubahan | Alasan |
 |---|---|---|---|
+| 0.2.4 | 2026-10-15 | Menstandarisasikan seluruh tombol kembali menjadi komponen terpusat `BackButton.tsx` dengan layout pill (`--radius-full`), ikon panah kembali (`Icon name="kembali"`) presisi di tengah vertikal, dan mendokumentasikan sebaran 4 lokasi tombol kembali di seluruh layar pada `design.md`. | Umpan balik desain untuk konsistensi antarmuka |
+| 0.2.3 | 2026-10-15 | Mengganti ikon buku statis pada seluruh kartu keadaan kosong (`EmptyStateCard` dan Keadaan Kosong Mata Kuliah) dengan ikon 3D transparan dari `icons-no-bg` secara acak/berbasis seed mata kuliah (ukuran 48–54px). | Umpan balik desain untuk memperkuat kesan playful, ekspresif, dan konsisten dengan karakter visual Mode B |
+| 0.2.2 | 2026-10-15 | Menghapus elemen lingkaran avatar profil ("M") pada dok navigasi mengambang (`FloatingPillDock`), menyederhanakan dok agar hanya berfokus pada tab navigasi (Today, Matkul, Tugas) dan tombol aksi `+ Tambah`. | Umpan balik desain karena aplikasi tidak memerlukan profil pengguna/login |
+| 0.2.1 | 2026-10-15 | Menambahkan spesifikasi komponen EmptyStateCard & tombol aksi utama besar (*primary big button*) pada kartu keadaan kosong di layar utama (Today/Chats) dan filter folder mata kuliah (Saved) sesuai token `--control-h`, `--radius-full`, dan `--color-surface-dark`. | Umpan balik desain untuk mempermudah pencatatan tugas baru saat daftar kosong |
+| 0.2.0 | 2026-10-15 | 1. Mengaktifkan kembali CourseFolderCard (grid 2 kolom berisi 8 folder mata kuliah 1KA03) sesuai layar "Saved" di reference.jpg.<br>2. Mengaktifkan kembali CourseSelectorPills pada form tambah tugas untuk pemilihan cepat 8 mata kuliah 1KA03 dalam 1 ketukan.<br>3. Memperbarui spesifikasi TaskCard bergaya Chat Bubble ("Chats") dengan kontur ramah dan palet warna vibrant.<br>4. Menyempurnakan Homepage bergaya "Today" dengan komposisi dual-tone (hero card gelap + container terang).<br>5. Menambahkan Floating Pill Dock di bawah layar untuk navigasi 3 layar (Today, Saved, Chats) dan aksi tambah tugas.<br>6. Menambahkan token warna vibrant (Coral, Yellow, Orange, Blue, Lavender, Mint) dengan kontras teks yang lolos uji WCAG AA (>= 4.5:1).<br>7. Mengintegrasikan data 8 mata kuliah utama kelas 1KA03 (Fisika & Kimia Dasar, Konsep SI/TI, Algoritma & Pemrograman 1, Matematika Dasar 1, Digital Citizenship, ISBD, Pendidikan Pancasila, Peng. Bisnis & Ekonomi Digital) lengkap dengan jadwal, ruang, dan dosen di `src/constants/courses.ts`. | Penyelarasan menyeluruh dengan 3 layar mockup reference/reference.jpg dan kurikulum kelas 1KA03 |
 | 0.1.2 | 2026-10-14 | Mengubah nama aplikasi resmi menjadi "plss.inget" di seluruh judul panduan desain, header, kartu sapaan, dan salinan antarmuka | Permintaan pemilik produk |
 | 0.1.1 | 2026-10-14 | 1. Mengubah form tambah tugas menjadi rute modal Expo Router (`presentation: 'modal'`).<br>2. Menjadikan kelompok Selesai (N) terlipat di bawah daftar utama (*collapsible*, default tertutup).<br>3. Menyederhanakan dok navigasi menjadi tombol pill tunggal `+ Tambah Tugas` (menghapus tab Home/Folder).<br>4. Menambahkan bagian 'Ditunda ke versi berikutnya' dan memindahkan 6 item (Folder Mata Kuliah, CourseFolderCard, CourseSelectorPills, Dropdown Filter, hitung mundur jam, haptic feedback, animasi sembunyi dok) serta membersihkan rujukan di seluruh bagian dokumen.<br>5. Menetapkan nama aplikasi di header menjadi "TugasKu".<br>6. Menyeragamkan teks dialog hapus menjadi: *"Hapus tugas '[Judul]'? Pengingat terjadwal ikut dibatalkan dan tindakan ini tidak dapat diurungkan."*<br>7. Mengganti rujukan `var(--...)` di Bagian 0 menjadi objek tema `src/constants/theme.ts`, menandai `tokens.css` sebagai referensi saja, dan melengkapi Bagian 12.2 dengan pemetaan seluruh token.<br>8. Menambahkan catatan verifikasi paket ikon (`@expo/vector-icons` belum terpasang, hanya `expo-symbols`) dan aturan persetujuan paket baru.<br>9. Menambahkan entri changelog 0.1.1. | Penyesuaian instruksi revisi produk dari pemilik produk |
 | 0.1.0 | 2026-10-14 | Versi awal panduan desain hasil slicing Mode B dari `reference/reference.jpg` | Menyelaraskan seluruh kebutuhan visual dengan kebutuhan fungsional `PRD.md` |

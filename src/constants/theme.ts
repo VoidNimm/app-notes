@@ -64,6 +64,27 @@ export const Spacing = {
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
 export const MaxContentWidth = 800;
 
+export type VibrantColorKey = 'coral' | 'yellow' | 'orange' | 'blue' | 'lavender' | 'mint';
+
+export interface ColorPair {
+  bg: string;
+  text: string;
+}
+
+/**
+ * Palet warna vibrant untuk bubble card & folder
+ * Mengacu ke layar "Saved" dan "Chats" di reference/reference.jpg
+ * Memenuhi rasio kontras WCAG AA (>= 4.5:1)
+ */
+export const VibrantColors: Record<VibrantColorKey, ColorPair> = {
+  coral: { bg: '#ff6562', text: '#161513' },
+  yellow: { bg: '#ffd027', text: '#161513' },
+  orange: { bg: '#ff8c21', text: '#161513' },
+  blue: { bg: '#2563eb', text: '#ffffff' },
+  lavender: { bg: '#c7b5eb', text: '#161513' },
+  mint: { bg: '#36d399', text: '#161513' },
+} as const;
+
 /**
  * Design Tokens dari design.md (Aplikasi Pencatat Tugas Kuliah)
  */
@@ -85,6 +106,7 @@ export const DesignTokens = {
     week: { bg: '#dbeafe', text: '#1e40af' },
     later: { bg: '#f3e8ff', text: '#6b21a8' },
     done: { bg: '#dcfce7', text: '#166534' },
+    vibrant: VibrantColors,
   },
   spacing: {
     space1: 4,
@@ -102,5 +124,64 @@ export const DesignTokens = {
     lg: 24,
     xl: 32,
     full: 9999,
+  },
+  typography: {
+    fontFamily: 'normal',
+    sizes: {
+      xs: 12,
+      sm: 14,
+      md: 16,
+      lg: 18,
+      xl: 24,
+      xxl: 30,
+    },
+    weights: {
+      regular: '400',
+      medium: '500',
+      bold: '700',
+    },
+    lineHeights: {
+      tight: 1.2,
+      normal: 1.5,
+    },
+  },
+  shadows: {
+    sm: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.05,
+      shadowRadius: 3,
+      elevation: 2,
+    },
+    md: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+      elevation: 4,
+    },
+    lg: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.12,
+      shadowRadius: 24,
+      elevation: 8,
+    },
+  },
+  motion: {
+    durFast: 150,
+    durBase: 250,
+    durSlow: 400,
+  },
+  controls: {
+    controlH: 48,
+    controlSmH: 36,
+    touchTargetMin: 44,
+  },
+  zIndex: {
+    card: 1,
+    dock: 50,
+    modal: 100,
+    toast: 200,
   },
 } as const;
